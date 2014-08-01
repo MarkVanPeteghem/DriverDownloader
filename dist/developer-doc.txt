@@ -1,0 +1,45 @@
+Developer docs for DriverDownloader
+***********************************
+
+DriverDownloader needs four libraries: commons-net-2.0.jar, edtftpj.jar,
+miglayout-3.7-swing.jar and json.jar. The first two are for downloading files
+from FTP servers. For some websites commons-net doesn't work. It may be that
+edtftpj works for all FTP servers, but that has not yet been tested.
+miglayout-3.7-swing.jar is used for the GUI in DriverDownloaderPanel.
+json.jar is used for some websites that contain JSON objects in their pages.
+
+Functionality to update the models present on a website, and to download files
+from a website, is in classes that implement the IDriverDownloader interface.
+The abstract class DriverDownloader is derived from this and implements some
+functionality that is common to all its derived classes. It also contains the
+available models in an object of the class DriverDataOfSpecificManufacturer,
+which has functionality to load and save these data in XML files. For
+simplicity the data are stored in a DOM object. The class DriverManager manages
+the objects that implement the interface IDriverDownloader, requests about data
+in them goes through this class.
+
+The class ParseUtils contains static methods to parse the pages that are
+downloaded, e.g. getting the text between two specific pieces of text, or
+getting all the links in part of a page. The class GatewayDriverDownloader
+hardly uses these methods because it was the first one that was developed.
+
+DriverDownloaderPanel contains a list of SelectedDownload objects. These are
+objects that contain the name, url and state of models that were selected to
+download. The class DownloadThread gets these objects one by one to process
+them.
+
+Throughout the code objects of the class PostableUrl are used. These contain a
+url and a map with data that should be posted when the url is fetched. The map
+is often empty, but in some places it is not.
+
+The application contains some global state. The class Interrupt contains a
+boolean that specifies whether an interrupt of the dowloads or updating of data
+was requested. Every time a file or webpage is downloaded this should be
+checked; if it is set to true, the processing should stop. The alternative was
+to throw an exception of the class InterruptedException in the class Download,
+but then this exception would have to be handled separately in many cases,
+because when downloading a file throws another exception, we still want to
+download the other files. The class GlobalOptions contains only one option now,
+whether a dry run is wanted or not, but could contain more. A dry run means
+that all the webpages are downloaded and parsed to get the links of the files
+to download, but the files are not downloaded. This saves time during testing.

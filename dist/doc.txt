@@ -1,0 +1,41 @@
+DriverDownloader
+****************
+
+Selecting models
+----------------
+To select the models for which you want to download all drivers,
+select the manufacturer and category, select one or more models
+and click 'Add selected models'. The application will ask to select
+a directory for each model.
+To restrict the number of models that are shown, type part of
+the model name in the text box to the right. Spaces are ignored,
+and matching is case insensitive.
+
+Downloading
+-----------
+To download the drivers for the selected models, click 'Download'.
+While a file is downloading it will have the extension 'incomplete'.
+If the download is successful, this extension is removed.
+If an error occurs during the download, this extension is kept.
+If the download for a model is repeated and the same directory is selected,
+files that were downloaded successfully before will not be downloaded again,
+while files that were not successfully downloaded (with extension 'incomplete')
+will be removed and downloaded again.
+Downloads that had an error will show this in their status. If all the
+downloads are finished, and 'Download' is clicked again, the models that
+had download errors will be downloaded again. Other files will also
+be downloaded again.
+Note: while downloading you can still select other models. They will also
+be downloaded.
+
+Exception list
+--------------
+In the file ExceptionList.txt you can specify names of files that should
+not be downloaded. Enter one filename per line (not the complete link,
+only the filename), empty lines are ignored.
+
+Updating model numbers
+----------------------
+If you cannot find a model number in the list, it may be that the list is not
+uptodate. In that case click the 'Update data...' button.
+Note however that this can take a long time, especially for HP and Lenovo.

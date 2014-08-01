@@ -1,0 +1,7 @@
+@echo off
+for /L %%i in (1, 1, 100) do (
+	echo %%i > file%%i.txt
+	
+	rem Next line slows it down
+	for /L %%j in (1, 1, 500000) do (set ABC=1)
+)
